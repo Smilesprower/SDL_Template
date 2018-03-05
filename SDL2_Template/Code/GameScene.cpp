@@ -3,6 +3,7 @@
 //
 
 #include "GameScene.h"
+
 GameScene::GameScene(SceneManager& sceneManager)
         : BaseScene{ sceneManager } {
 }

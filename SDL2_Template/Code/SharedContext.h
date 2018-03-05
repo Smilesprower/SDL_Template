@@ -5,12 +5,14 @@
 #ifndef SDL2_TEMPLATE_SHAREDCONTEXT_H
 #define SDL2_TEMPLATE_SHAREDCONTEXT_H
 
-//class Window;
-//class EventManager;
+#include <SDL2/SDL.h>
+
+class WindowManager;
+class EventManager;
 
 struct SharedContext {
-    //EventManager* eventManager = nullptr;
-    //SDL_Renderer* renderer = nullptr;
+    SDL_Renderer* renderer = nullptr;
+    EventManager* eventManager = nullptr;
 };
 
 

@@ -12,7 +12,7 @@ class SceneManager;
 class BaseScene {
 public:
     BaseScene(SceneManager& sceneManager)
-            : m_sceneManager{ sceneManager } {
+        : m_sceneManager{ &sceneManager } {
     }
     //virtual ~BaseScene() = 0;
 
@@ -23,13 +23,13 @@ public:
     virtual void onExit() = 0;
 
 protected:
-    SharedContext& getSharedContext();
+    SharedContext* getSharedContext() const;
     void requestSceneChange(SceneID sceneID);
     void requestRemoveCurrentScene();
     void requestRemoveAllScenes();
 
 private:
-    SceneManager& m_sceneManager;
+    SceneManager* m_sceneManager;
 };
 
 #endif //SDL2_TEMPLATE_BASESCENE_H

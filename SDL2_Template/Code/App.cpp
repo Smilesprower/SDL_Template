@@ -6,61 +6,44 @@
 #include "TitleScene.h"
 #include "GameScene.h"
 
-App::App()
-    : m_quit(false) {
-}
-
-
-bool App::init() {
-
-    if(m_window.init("", 800, 600, SDL_WINDOW_INPUT_FOCUS, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC)) {
+App::App(const char *name, int32_t width, int32_t height, uint32_t windowFlags, uint32_t rendererFlags)
+    : m_windowManager{ name, width, height, windowFlags, rendererFlags } {
         setUpClasses();
-        return true;
-    }
-    return false;
+        setUpScenes();
 }
 
-void App::loop() {
-    while (!m_quit) {
-        SDL_Event event;
-        // Keyboard Update
-        while(SDL_PollEvent(&event) != 0) {
-            switch(event.type) {
-                case SDL_QUIT: {
-                    m_quit = true;
-                }
-            }
-        }
+void App::gameLoop() {
 
-        // HANDLE TIME
-        // HANDLE INPUT
+    while (m_windowManager.isOpen()) {
 
+        // WINDOW EVENT UPDATES
+        m_windowManager.update();
+
+        // SCENE UPDATES
         m_sceneManager->update();
 
-        SDL_RenderClear(m_window.getRenderer());
+        // SCENE RENDERING
+        m_windowManager.beginDraw();
         m_sceneManager->render();
-        SDL_RenderPresent(m_window.getRenderer());
+        m_windowManager.endDraw();
 
+        // LATE UPDATE
         m_sceneManager->processRequests();
 
         if (m_sceneManager->sceneStackIsEmpty()) {
-            m_quit = true;
+            m_windowManager.close();
         }
     }
 }
 
-void App::cleanUp() {
+void App::setUpClasses() {
+    m_sharedContext.renderer = m_windowManager.getRenderer();
+    m_sharedContext.eventManager = m_windowManager.getEventManager();
+    m_sceneManager = std::make_unique<SceneManager>(m_sharedContext);
 }
 
-void App::setUpClasses() {
-
-
-    m_sceneManager = std::make_unique<SceneManager>(m_sharedContext);
-
+void App::setUpScenes() {
     m_sceneManager->registerScene<TitleScene>(SceneID::kTitle);
     m_sceneManager->registerScene<GameScene>(SceneID::kGame);
     m_sceneManager->changeScene(SceneID::kTitle);
-}
-
-void App::loadContent() {
 }

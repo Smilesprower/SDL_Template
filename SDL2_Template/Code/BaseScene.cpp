@@ -5,18 +5,18 @@
 #include "BaseScene.h"
 #include "SceneManager.h"
 
-SharedContext& BaseScene::getSharedContext() {
-    return m_sceneManager.getSharedContext();
+SharedContext* BaseScene::getSharedContext() const {
+    return m_sceneManager->getSharedContext();
 }
 
 void BaseScene::requestSceneChange(SceneID sceneID) {
-    m_sceneManager.changeScene(sceneID);
+    m_sceneManager->changeScene(sceneID);
 }
 
 void BaseScene::requestRemoveCurrentScene() {
-    m_sceneManager.removeCurrentScene();
+    m_sceneManager->removeCurrentScene();
 }
 
 void BaseScene::requestRemoveAllScenes() {
-    m_sceneManager.removeAllScenes();
+    m_sceneManager->removeAllScenes();
 }

@@ -34,7 +34,7 @@ public:
     void removeAllScenes();
     void processRequests();
 
-    SharedContext& getSharedContext() const;
+    SharedContext* getSharedContext() const;
 
 private:
     struct Request {
@@ -51,7 +51,7 @@ private:
     bool stackContainsScene(SceneID sceneID);
 
 
-    SharedContext& m_sharedContext;
+    SharedContext* m_sharedContext;
     SceneRequests m_sceneRequests;
     SceneStack m_sceneStack;
     SceneFactory m_sceneFactory;

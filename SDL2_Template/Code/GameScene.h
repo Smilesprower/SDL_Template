@@ -6,6 +6,7 @@
 #define SDL2_TEMPLATE_GAMESCENE_H
 
 #include "BaseScene.h"
+
 class GameScene : public BaseScene{
 public:
     GameScene(SceneManager& sceneManager);

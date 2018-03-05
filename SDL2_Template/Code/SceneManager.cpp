@@ -5,18 +5,17 @@
 #include "SceneManager.h"
 
 SceneManager::SceneManager(SharedContext& sharedContext)
-        : m_sharedContext{ sharedContext } {
+    : m_sharedContext{ &sharedContext } {
 }
 
 void SceneManager::update() {
-    //TEMP
     if (!m_sceneStack.empty()) {
         m_sceneStack.back().second->update();
     }
 }
 
 void SceneManager::render() {
-    //TEMP
+    //TODO : Add Transparency to allow multi scene draw ?
     if (!m_sceneStack.empty()) {
         m_sceneStack.back().second->render();
     }
@@ -27,7 +26,11 @@ bool SceneManager::sceneStackIsEmpty() {
 }
 
 void SceneManager::changeScene(SceneID sceneID) {
-    m_sceneRequests.emplace_back(Request{ Action::kAddScene, sceneID });
+    if(!stackContainsScene(sceneID)) {
+        m_sceneRequests.emplace_back(Request{Action::kAddScene, sceneID});
+    } else {
+        printf("Scene exists already\n");
+    }
 }
 
 void SceneManager::removeCurrentScene() {
@@ -39,7 +42,6 @@ void SceneManager::removeAllScenes() {
 }
 
 void SceneManager::processRequests() {
-    // TODO CHANGE
     for (const auto& requestItr : m_sceneRequests) {
         switch (requestItr.m_action) {
             case Action::kAddScene: {
@@ -70,7 +72,7 @@ void SceneManager::addScene(const SceneID sceneID) {
         m_sceneStack.back().second->onEnter();
     }
     else {
-        /// TODO END PROGRAM MAYBE ?
+        // TODO : END PROGRAM MAYBE ?
         printf("Scene is not registered\n");
     }
 }
@@ -84,10 +86,10 @@ bool SceneManager::stackContainsScene(SceneID sceneID) {
     return false;
 }
 
-SharedContext& SceneManager::getSharedContext() const {
+SharedContext* SceneManager::getSharedContext() const {
     return m_sharedContext;
 }
 
 SceneManager::Request::Request(SceneManager::Action action, SceneID sceneID)
-        : m_action{ action }, m_sceneID{ sceneID } {
+    : m_action{ action }, m_sceneID{ sceneID } {
 }

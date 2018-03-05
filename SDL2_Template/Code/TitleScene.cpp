@@ -3,8 +3,9 @@
 //
 
 #include "TitleScene.h"
+
 TitleScene::TitleScene(SceneManager& sceneManager)
-        : BaseScene{ sceneManager } {
+    : BaseScene{ sceneManager } {
 }
 
 void TitleScene::update() {
