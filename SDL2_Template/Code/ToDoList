@@ -1,0 +1,27 @@
+** EventHandler **
+Add Scene Specific callbacks so the same Commands are not used in all scenes.
+Remove callbacks based on sceneID.
+Add Joystick support for event handler ("Later Date").
+
+** WindowManager **
+Add support for OpenGL ("Later Date").
+
+** ResourceManager **
+Add a ResourceManager that can load, store and remove different resources.
+Add SDL_Mixer dependencies
+Add SDL_Image dependencies
+Allow .bmp to be loaded with transparent backgrounds ("Doesn't need SDL_Image").
+
+** Audio Player **
+Add Audio Player to play Music and SFX
+
+** Network Manager **
+("Later Date").
+
+** Make a demo game **
+Tetris
+Snake
+
+
+** Test **
+("Maybe someday").

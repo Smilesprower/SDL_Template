@@ -12,24 +12,22 @@ WindowManager::WindowManager(const char* name, int width, int height, uint32_t w
         if(m_window == nullptr || m_renderer == nullptr) {
             m_isOpen = false;
         }
-        SDL_SetRenderDrawColor(m_renderer.get(), 100, 149, 237, 255);
 }
 
 void WindowManager::update() {
     SDL_Event event;
     while(SDL_PollEvent(&event) != 0) {
-        switch(event.type) {
-            case SDL_QUIT: {
-                m_isOpen = false;
-                break;
-            }
+        if(event.type == SDL_QUIT) {
+            m_isOpen = false;
+        } else {
+            m_eventManager.updateEvent(event);
         }
-        m_eventManager.updateEvent(event);
     }
     m_eventManager.updateRealTimeEvent();
 }
 
 void WindowManager::beginDraw() const {
+    SDL_SetRenderDrawColor(m_renderer.get(), 100, 149, 237, 255);
     SDL_RenderClear(m_renderer.get());
 }
 

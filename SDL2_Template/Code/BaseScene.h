@@ -5,6 +5,8 @@
 #ifndef SDL2_TEMPLATE_BASESCENE_H
 #define SDL2_TEMPLATE_BASESCENE_H
 
+#include <iostream>
+#include "EventManager.h"
 #include "SharedContext.h"
 #include "Identifiers.h"
 

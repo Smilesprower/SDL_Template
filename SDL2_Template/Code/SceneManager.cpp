@@ -51,6 +51,7 @@ void SceneManager::processRequests() {
             case Action::kRemoveCurrentScene: {
                 m_sceneStack.back().second->onExit();
                 m_sceneStack.pop_back();
+                m_sharedContext->eventManager->updateCurrentScene(m_sceneStack.back().first);
                 break;
             }
             case Action::kRemoveAllScenes: {
@@ -68,6 +69,7 @@ void SceneManager::processRequests() {
 void SceneManager::addScene(const SceneID sceneID) {
     auto sceneItr = m_sceneFactory.find(sceneID);
     if (sceneItr != m_sceneFactory.end()) {
+        m_sharedContext->eventManager->updateCurrentScene(sceneID);
         m_sceneStack.emplace_back(std::make_pair(sceneID, std::move(sceneItr->second())));
         m_sceneStack.back().second->onEnter();
     }

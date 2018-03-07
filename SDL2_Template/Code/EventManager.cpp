@@ -3,14 +3,51 @@
 //
 
 #include "EventManager.h"
+
+EventManager::EventManager()
+    : m_currentScene{ SceneID::kNone } {
+}
+
 void EventManager::updateEvent(SDL_Event &event) {
     // HANDLE EVENT STHUFF, MOUSE ETC
-    //
 }
 
 void EventManager::updateRealTimeEvent() {
-    // HANDLE KEYBOARD STHUFF IN REAL TIME
-
+    // HANDLE REAL TIME EVENTS
+    for (auto& bindItr : m_bindings) {
+        EventInfo* eventInfo = &bindItr.second;
+        switch(eventInfo->eventId) {
+            case EventID::kKeyDown : {
+                if (m_keyboard.onKeyDown(eventInfo->keyCode)) {
+                    callback(bindItr.first, eventInfo);
+                }   break;
+            }
+            case EventID::kKeyUp : {
+                if (m_keyboard.onKeyUp(eventInfo->keyCode)) {
+                    callback(bindItr.first, eventInfo);
+                }   break;
+            }
+            case EventID::kKeyPress : {
+                if (m_keyboard.onKeyPress(eventInfo->keyCode)) {
+                    callback(bindItr.first, eventInfo);
+                }   break;
+            }
+        }
+    }
     // SET PREVIOUS STATE
     m_keyboard.updatePreviousState();
 }
+
+void EventManager::updateCurrentScene(SceneID sceneID) {
+    m_currentScene = sceneID;
+}
+
+void EventManager::callback(CommandID cmdID, EventInfo* eventInfo) {
+    auto callback = m_callbacks.find(cmdID);
+    if (callback != m_callbacks.end()) {
+        callback->second(eventInfo);
+    }
+}
+
+
+

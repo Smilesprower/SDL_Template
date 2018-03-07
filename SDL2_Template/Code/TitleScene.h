@@ -6,6 +6,7 @@
 #define SDL2_TEMPLATE_TITLESCENE_H
 
 #include "BaseScene.h"
+#include "EventManager.h"
 class TitleScene : public BaseScene {
 public:
     TitleScene(SceneManager& sceneManager);
@@ -16,6 +17,13 @@ public:
     void onExit() override;
 
 private:
+    void moveUp(EventInfo* info);
+    void moveDown(EventInfo* info);
+    void moveLeft(EventInfo* info);
+    void moveRight(EventInfo* info);
+
+    SDL_Point m_velocity;
+    SDL_Rect m_bounds;
 };
 
 
