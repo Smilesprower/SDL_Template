@@ -11,14 +11,19 @@
 #include <vector>
 #include "Identifiers.h"
 #include "Keyboard.h"
+#include "GameController.h"
 #include "EventInfo.h"
+#include <iostream>
 
 class EventManager {
 public:
     EventManager();
 
+    void setUp();
+
     void updateEvent(SDL_Event& event);
-    void updateRealTimeEvent();
+    void updateKeyBoardEvents();
+    void updateGameControllerEvents();
     void updateCurrentScene(SceneID sceneID);
 
     template<class T>
@@ -32,14 +37,15 @@ private:
 
     SceneID m_currentScene;
     Keyboard m_keyboard;
+    GameController m_gameController;
     Callback m_callbacks;
 
     // TODO : Load from file ?
     Bindings m_bindings{
-            { CommandID::kUp,		EventInfo{ EventID::kKeyDown,  SDL_SCANCODE_UP }},
-            { CommandID::kDown,		EventInfo{ EventID::kKeyDown,   SDL_SCANCODE_DOWN }},
-            { CommandID::kLeft,		EventInfo{ EventID::kKeyDown,   SDL_SCANCODE_LEFT }},
-            { CommandID::kRight,	EventInfo{ EventID::kKeyDown,   SDL_SCANCODE_RIGHT }},
+            { CommandID::kUp,		EventInfo{ EventID::kKeyDown,   SDL_SCANCODE_UP,    SDL_CONTROLLER_BUTTON_DPAD_UP }},
+            { CommandID::kDown,		EventInfo{ EventID::kKeyDown,   SDL_SCANCODE_DOWN,  SDL_CONTROLLER_BUTTON_DPAD_DOWN }},
+            { CommandID::kLeft,		EventInfo{ EventID::kKeyDown,   SDL_SCANCODE_LEFT,  SDL_CONTROLLER_BUTTON_DPAD_LEFT }},
+            { CommandID::kRight,	EventInfo{ EventID::kKeyDown,   SDL_SCANCODE_RIGHT, SDL_CONTROLLER_BUTTON_DPAD_RIGHT }},
     };
 };
 

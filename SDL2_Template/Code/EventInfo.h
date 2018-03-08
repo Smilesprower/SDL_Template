@@ -16,6 +16,7 @@ enum class EventID {
 struct EventInfo {
     EventID eventId;
     SDL_Scancode keyCode;
+    SDL_GameControllerButton buttonCode;
 };
 
 #endif //SDL2_TEMPLATE_EVENTINFO_H

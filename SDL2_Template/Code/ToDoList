@@ -1,7 +1,7 @@
 ** EventHandler **
 Add Scene Specific callbacks so the same Commands are not used in all scenes.
 Remove callbacks based on sceneID.
-Add Joystick support for event handler ("Later Date").
+BASIC IMPLEMENTATION ADDED -> Add Joystick support for event handler.
 
 ** WindowManager **
 Add support for OpenGL ("Later Date").

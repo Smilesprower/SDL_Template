@@ -29,6 +29,11 @@ namespace SDL2 {
                 SDL_DestroyTexture(texture);
             }
         }
+        void operator()(SDL_GameController* gameController) {
+            if (gameController) {
+                SDL_GameControllerClose(gameController);
+            }
+        }
     };
 
     // <-- Unique Pointers -->
@@ -36,6 +41,7 @@ namespace SDL2 {
     using RendererUniqPtr = std::unique_ptr<SDL_Renderer, SDL_Deleter>;
     using SurfaceUniqPtr = std::unique_ptr<SDL_Surface, SDL_Deleter>;
     using TextureUniqPtr = std::unique_ptr<SDL_Texture, SDL_Deleter>;
+    using GameControllerUniqPtr = std::unique_ptr<SDL_GameController, SDL_Deleter>;
 
     // TODO: add shared_ptrs
 

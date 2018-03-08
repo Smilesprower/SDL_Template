@@ -23,7 +23,8 @@ void WindowManager::update() {
             m_eventManager.updateEvent(event);
         }
     }
-    m_eventManager.updateRealTimeEvent();
+    m_eventManager.updateKeyBoardEvents();
+    m_eventManager.updateGameControllerEvents();
 }
 
 void WindowManager::beginDraw() const {
