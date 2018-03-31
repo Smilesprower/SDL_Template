@@ -16,7 +16,7 @@ public:
     BaseScene(SceneManager& sceneManager)
         : m_sceneManager{ &sceneManager } {
     }
-    //virtual ~BaseScene() = 0;
+    virtual ~BaseScene();
 
     virtual void update() = 0;
     virtual void render() = 0;

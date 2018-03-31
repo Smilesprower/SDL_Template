@@ -27,10 +27,10 @@ void TitleScene::render() {
 void TitleScene::onEnter() {
     // Update SharedContext managers
     EventManager* eventManager = getSharedContext()->eventManager;
-    eventManager->addCallback(CommandID::kUp,    &TitleScene::moveUp,    this);
-    eventManager->addCallback(CommandID::kDown,  &TitleScene::moveDown,  this);
-    eventManager->addCallback(CommandID::kLeft,  &TitleScene::moveLeft,  this);
-    eventManager->addCallback(CommandID::kRight, &TitleScene::moveRight, this);
+    eventManager->addCallback(EventID::kUp,    &TitleScene::moveUp,    this);
+    eventManager->addCallback(EventID::kDown,  &TitleScene::moveDown,  this);
+    eventManager->addCallback(EventID::kLeft,  &TitleScene::moveLeft,  this);
+    eventManager->addCallback(EventID::kRight, &TitleScene::moveRight, this);
 }
 
 void TitleScene::onExit() {

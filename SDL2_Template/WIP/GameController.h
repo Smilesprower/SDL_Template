@@ -8,7 +8,7 @@
 #include <array>
 #include <algorithm>
 #include <SDL2/SDL.h>
-#include "CustomDeleter.h"
+#include "../Code/SDL2UniquePtr.h"
 
 struct ControllerData {
     std::array<Uint8, SDL_CONTROLLER_BUTTON_MAX> previousButtonState{ 0 };
@@ -60,7 +60,7 @@ struct GameController {
     }
 
 private:
-    using Controller = std::pair<SDL2::GameControllerUniqPtr, ControllerData>;
+    using Controller = std::pair<SDL2uGameController , ControllerData>;
 
     const static int16_t kDeadZone = 5000;
     Controller m_controller;

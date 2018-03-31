@@ -4,12 +4,12 @@
 
 #include "WindowManager.h"
 
-WindowManager::WindowManager(const char* name, int width, int height, uint32_t windowFlags, uint32_t rendererFlags)
+WindowManager::WindowManager(const char* name, int32_t width, int32_t height, uint32_t windowFlags, uint32_t rendererFlags)
     : m_isOpen{ true }
     , m_window{ SDL_CreateWindow(name, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, windowFlags) }
     , m_renderer{ SDL_CreateRenderer(m_window.get(), -1, rendererFlags) } {
 
-        if(m_window == nullptr || m_renderer == nullptr) {
+        if(!m_window  || !m_renderer) {
             m_isOpen = false;
         }
 }
@@ -19,12 +19,10 @@ void WindowManager::update() {
     while(SDL_PollEvent(&event) != 0) {
         if(event.type == SDL_QUIT) {
             m_isOpen = false;
-        } else {
-            m_eventManager.updateEvent(event);
         }
     }
     m_eventManager.updateKeyBoardEvents();
-    m_eventManager.updateGameControllerEvents();
+    //m_eventManager.updateGameControllerEvents();
 }
 
 void WindowManager::beginDraw() const {

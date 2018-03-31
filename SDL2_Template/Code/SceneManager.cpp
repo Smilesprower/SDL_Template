@@ -27,34 +27,34 @@ bool SceneManager::sceneStackIsEmpty() {
 
 void SceneManager::changeScene(SceneID sceneID) {
     if(!stackContainsScene(sceneID)) {
-        m_sceneRequests.emplace_back(Request{Action::kAddScene, sceneID});
+        m_sceneRequests.emplace_back(Request{ Request::Action::kAddScene, sceneID });
     } else {
         printf("Scene exists already\n");
     }
 }
 
 void SceneManager::removeCurrentScene() {
-    m_sceneRequests.emplace_back(Request{ Action::kRemoveCurrentScene });
+    m_sceneRequests.emplace_back(Request{ Request::Action::kRemoveCurrentScene });
 }
 
 void SceneManager::removeAllScenes() {
-    m_sceneRequests.emplace_back(Request{ Action::kRemoveAllScenes });
+    m_sceneRequests.emplace_back(Request{ Request::Action::kRemoveAllScenes });
 }
 
 void SceneManager::processRequests() {
     for (const auto& requestItr : m_sceneRequests) {
         switch (requestItr.m_action) {
-            case Action::kAddScene: {
+            case Request::Action::kAddScene: {
                 addScene(requestItr.m_sceneID);
                 break;
             }
-            case Action::kRemoveCurrentScene: {
+            case Request::Action::kRemoveCurrentScene: {
                 m_sceneStack.back().second->onExit();
                 m_sceneStack.pop_back();
                 m_sharedContext->eventManager->updateCurrentScene(m_sceneStack.back().first);
                 break;
             }
-            case Action::kRemoveAllScenes: {
+            case Request::Action::kRemoveAllScenes: {
                 while (!m_sceneStack.empty()) {
                     m_sceneStack.back().second->onExit();
                     m_sceneStack.pop_back();
@@ -92,6 +92,6 @@ SharedContext* SceneManager::getSharedContext() const {
     return m_sharedContext;
 }
 
-SceneManager::Request::Request(SceneManager::Action action, SceneID sceneID)
+SceneManager::Request::Request(SceneManager::Request::Action action, SceneID sceneID)
     : m_action{ action }, m_sceneID{ sceneID } {
 }

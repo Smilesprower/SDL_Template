@@ -15,10 +15,6 @@
 
 class SceneManager {
 public:
-    enum class Action {
-        kAddScene, kRemoveCurrentScene, kRemoveAllScenes
-    };
-
     explicit SceneManager(SharedContext& sharedContext);
 
     void update();
@@ -38,6 +34,9 @@ public:
 
 private:
     struct Request {
+        enum class Action {
+            kAddScene, kRemoveCurrentScene, kRemoveAllScenes
+        };
         Request(Action action, SceneID sceneID = SceneID::kNone);
         Action m_action;
         SceneID m_sceneID;
@@ -49,7 +48,6 @@ private:
 
     void addScene(SceneID sceneID);
     bool stackContainsScene(SceneID sceneID);
-
 
     SharedContext* m_sharedContext;
     SceneRequests m_sceneRequests;

@@ -9,6 +9,9 @@ SharedContext* BaseScene::getSharedContext() const {
     return m_sceneManager->getSharedContext();
 }
 
+BaseScene::~BaseScene() {
+}
+
 void BaseScene::requestSceneChange(SceneID sceneID) {
     m_sceneManager->changeScene(sceneID);
 }
@@ -20,3 +23,5 @@ void BaseScene::requestRemoveCurrentScene() {
 void BaseScene::requestRemoveAllScenes() {
     m_sceneManager->removeAllScenes();
 }
+
+

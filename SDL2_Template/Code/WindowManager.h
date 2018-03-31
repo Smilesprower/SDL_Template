@@ -8,7 +8,7 @@
 #include <SDL2/SDL.h>
 #include "EventManager.h"
 #include "Keyboard.h"
-#include "CustomDeleter.h"
+#include "SDL2UniquePtr.h"
 
 class WindowManager {
 public:
@@ -27,8 +27,8 @@ public:
 private:
     bool m_isOpen;
     EventManager m_eventManager;
-    SDL2::WindowUniqPtr m_window;
-    SDL2::RendererUniqPtr m_renderer;
+    SDL2uWindow m_window;
+    SDL2uRenderer m_renderer;
 };
 
 
